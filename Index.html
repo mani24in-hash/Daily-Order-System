@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sanatan Mandir Tiffin Service Order</title>
+
+  <style>
+    body { font-family: Arial, sans-serif; background: #f6f6f6; padding: 20px; }
+    .container {
+      max-width: 900px; background: #fff; margin: auto; padding: 25px;
+      border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1 { text-align: center; color: #b45309; margin-top: 0; }
+    .section-title { margin-top: 25px; color: #92400e; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+    label { display: block; margin-top: 12px; font-weight: bold; }
+    input[type="text"], input[type="email"], input[type="tel"], textarea {
+      width: 100%; padding: 10px; margin-top: 6px; border: 1px solid #ccc; border-radius: 4px;
+      font-size: 14px;
+    }
+    .day-picker {
+      display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px;
+      padding: 10px; border: 1px solid #ddd; border-radius: 6px; background: #fafafa;
+    }
+    .day-pill { font-weight: normal; margin: 0; }
+    .day-pill input { transform: translateY(1px); }
+
+    .day-menu {
+      display: none; /* hidden until day selected */
+      margin-top: 18px; padding: 14px; border: 1px solid #eee; border-radius: 8px; background: #fff;
+    }
+    .menu-item { font-weight: normal; margin-left: 10px; margin-top: 8px; }
+    .hint { font-size: 13px; color: #555; margin-top: 6px; }
+
+    button {
+      margin-top: 24px; width: 100%; padding: 12px; background: #b45309;
+      color: white; border: none; font-size: 16px; cursor: pointer; border-radius: 6px;
+    }
+    button:hover { background: #92400e; }
+
+    .required-note { font-size: 13px; color: #666; text-align: center; margin-top: 12px; }
+    .error {
+      display: none; margin-top: 12px; padding: 10px; border-radius: 6px;
+      background: #fff7ed; border: 1px solid #fed7aa; color: #9a3412;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Sanatan Mandir Tiffin Service Order</h1>
+
+    <form id="orderForm" action="https://formspree.io/f/xeeeqjrn" method="POST">
+      <label>Full Name *</label>
+      <input type="text" name="name" required>
+
+      <label>Phone *</label>
+      <input type="tel" name="phone" required>
+
+      <label>Email *</label>
+      <input type="email" name="email" required>
+
+      <h2 class="section-title">Select Day(s) *</h2>
+      <div class="hint">Choose one or more days. Only selected day menus will appear.</div>
+
+      <div class="day-picker" role="group" aria-label="Select days">
+        <label class="day-pill"><input type="checkbox" name="selected_days[]" value="Monday" data-day="Monday"> Monday</label>
+        <label class="day-pill"><input type="checkbox" name="selected_days[]" value="Tuesday" data-day="Tuesday"> Tuesday</label>
+        <label class="day-pill"><input type="checkbox" name="selected_days[]" value="Wednesday" data-day="Wednesday"> Wednesday</label>
+        <label class="day-pill"><input type="checkbox" name="selected_days[]" value="Thursday" data-day="Thursday"> Thursday</label>
+        <label class="day-pill"><input type="checkbox" name="selected_days[]" value="Friday" data-day="Friday"> Friday</label>
+      </div>
+
+      <div id="dayError" class="error">
+        Please select at least one day.
+      </div>
+
+      <!-- MONDAY MENU -->
+      <div class="day-menu" id="menu-Monday" aria-live="polite">
+        <h2 class="section-title" style="margin-top: 0;">Monday Menu</h2>
+
+        <label class="menu-item">
+          <input type="checkbox" name="Monday_items[]" value="Bhaji (per lb) - $7">
+          Bhaji (per lb) – $7
+        </label>
+
+        <label class="menu-item">
+          <input type="checkbox" name="Monday_items[]" value="Tava Pulav (per lb) - $7">
+          Tava Pulav (per lb) – $7
+        </label>
+      </div>
+
+      <!-- TUESDAY MENU -->
+      <div class="day-menu" id="menu-Tuesday" aria-live="polite">
+        <h2 class="section-title" style="margin-top: 0;">Tuesday Menu</h2>
+
+        <label class="menu-item">
+          <input type="checkbox" name="Tuesday_items[]" value="Chole - $7">
+          Chole – $7
+        </label>
+
+        <label class="menu-item">
+          <input type="checkbox" name="Tuesday_items[]" value="Puri (per piece) - $0.50">
+          Puri (per piece) – $0.50
+        </label>
+      </div>
+
+      <!-- WEDNESDAY MENU -->
+      <div class="day-menu" id="menu-Wednesday" aria-live="polite">
+        <h2 class="section-title" style="margin-top: 0;">Wednesday Menu</h2>
+
+        <label class="menu-item">
+          <input type="checkbox" name="Wednesday_items[]" value="Tadka Dal (per lb) - $7">
+          Tadka Dal (per lb) – $7
+        </label>
+
+        <label class="menu-item">
+          <input type="checkbox" name="Wednesday_items[]" value="Potato Shaak (per lb) - $7">
+          Potato Shaak (per lb) – $7
+        </label>
+
+        <label class="menu-item">
+          <input type="checkbox" name="Wednesday_items[]" value="Paratha (per piece) - $1">
+          Paratha (per piece) – $1
+        </label>
+      </div>
+
+      <!-- THURSDAY MENU -->
+      <div class="day-menu" id="menu-Thursday" aria-live="polite">
+        <h2 class="section-title" style="margin-top: 0;">Thursday Menu</h2>
+
+        <label class="menu-item">
+          <input type="checkbox" name="Thursday_items[]" value="Daal Dhokli - $7">
+          Daal Dhokli – $7
+        </label>
+
+        <label class="menu-item">
+          <input type="checkbox" name="Thursday_items[]" value="Masala Bhakri (per piece) - $1">
+          Masala Bhakri (per piece) – $1
+        </label>
+      </div>
+
+      <!-- FRIDAY MENU -->
+      <div class="day-menu" id="menu-Friday" aria-live="polite">
+        <h2 class="section-title" style="margin-top: 0;">Friday Menu</h2>
+
+        <label class="menu-item">
+          <input type="checkbox" name="Friday_items[]" value="Sambhar - $7">
+          Sambhar – $7
+        </label>
+
+        <label class="menu-item">
+          <input type="checkbox" name="Friday_items[]" value="Idli (per piece) - $1">
+          Idli (per piece) – $1
+        </label>
+      </div>
+
+      <h2 class="section-title">Additional Notes</h2>
+      <textarea name="notes" rows="4" placeholder="Any special instructions..."></textarea>
+
+      <button type="submit">Submit Order</button>
+      <div class="required-note">Fields marked * are required.</div>
+    </form>
+  </div>
+
+  <script>
+    // Show/hide menus based on selected days
+    const dayCheckboxes = document.querySelectorAll('input[type="checkbox"][data-day]');
+    const dayError = document.getElementById('dayError');
+    const form = document.getElementById('orderForm');
+
+    function updateMenus() {
+      const selected = [];
+      dayCheckboxes.forEach(cb => {
+        const day = cb.getAttribute('data-day');
+        const menu = document.getElementById('menu-' + day);
+
+        if (cb.checked) {
+          selected.push(day);
+          menu.style.display = 'block';
+        } else {
+          // hide menu + clear any checked items inside that menu
+          menu.style.display = 'none';
+          menu.querySelectorAll('input[type="checkbox"]').forEach(itemCb => itemCb.checked = false);
+        }
+      });
+
+      // Hide error as soon as user selects something
+      if (selected.length > 0) dayError.style.display = 'none';
+    }
+
+    dayCheckboxes.forEach(cb => cb.addEventListener('change', updateMenus));
+    updateMenus(); // initial state
+
+    // Prevent submit if no days selected
+    form.addEventListener('submit', function (e) {
+      const anyDaySelected = Array.from(dayCheckboxes).some(cb => cb.checked);
+      if (!anyDaySelected) {
+        e.preventDefault();
+        dayError.style.display = 'block';
+        dayError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  </script>
+</body>
+</html>
